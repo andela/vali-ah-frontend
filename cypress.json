@@ -1,3 +1,4 @@
 {
-  "integrationFolder": "tests/integration"
+  "integrationFolder": "tests/integration",
+  "baseUrl": "http://localhost:3000"
 }

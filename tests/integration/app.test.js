@@ -1,7 +1,6 @@
-describe("Google test", () => {
-  it("visits google and search", () => {
-    cy.visit("https://google.com");
-    cy.get('[name="q"]').type('Search {enter}')
-    cy.get('[name="q"]').should('have.value', 'Search');
+describe('App test', () => {
+  it('loads successfully', () => {
+    cy.visit('/');
+    cy.get('h1').should('contain', 'Welcome to 1kbideas');
   });
 });
