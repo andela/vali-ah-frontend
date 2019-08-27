@@ -1,21 +1,22 @@
 const path = require('path');
-const { Htmlwebpackplugin } = require('./webpack.plugins.js');
+const { htmlWebpackPlugin, cleanWebpackPlugin } = require('./webpack.plugins.js');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: ['react-hot-loader/patch', './src/index.jsx'],
   output: {
-    path: path.resolve(__dirname, '../public'),
-    filename: 'bundle.js',
-    sourceMapFilename: 'bundle.map',
+    path: path.resolve(__dirname, '../build'),
+    filename: '[name].js',
+    sourceMapFilename: '[name].map',
     publicPath: '/',
   },
   resolve: {
     alias: {
-      components: path.resolve(__dirname, '../src/components')
+      components: path.resolve(__dirname, '../src/components'),
+      'react-dom': '@hot-loader/react-dom',
     },
     extensions: ['.js', '.jsx']
   },
-  devtool: '#source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -34,6 +35,7 @@ module.exports = {
     ]
   },
   plugins: [
-    Htmlwebpackplugin,
+    htmlWebpackPlugin,
+    cleanWebpackPlugin
   ],
 };

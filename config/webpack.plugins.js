@@ -1,18 +1,24 @@
-let Htmlwebpackplugin = require('html-webpack-plugin');
-let UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-let OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+/* eslint-disable import/no-extraneous-dependencies */
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-Htmlwebpackplugin = new Htmlwebpackplugin({
-  template: './src/index.html'
+const htmlWebpackPlugin = new HtmlWebpackPlugin({
+  template: './src/index.html',
+  title: '1kbIdeas',
 });
 
-UglifyJsPlugin = new UglifyJsPlugin({
-  test: /\.(js|jsx)$/,
-  exclude: /node_modules/,
+const terserPlugin = new TerserPlugin({
   cache: true,
   parallel: true,
+  sourceMap: true
 });
 
-OptimizeCSSAssetsPlugin = new OptimizeCSSAssetsPlugin({});
+const optimizeCSSAssetsPlugin = new OptimizeCSSAssetsPlugin({});
 
-module.exports = { Htmlwebpackplugin, UglifyJsPlugin, OptimizeCSSAssetsPlugin };
+const cleanWebpackPlugin = new CleanWebpackPlugin();
+
+module.exports = {
+  htmlWebpackPlugin, terserPlugin, optimizeCSSAssetsPlugin, cleanWebpackPlugin
+};
