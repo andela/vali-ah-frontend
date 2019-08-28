@@ -15,7 +15,7 @@
     "test:e2e": "start-server-and-test start http://localhost:3000 cy:run",
     "test:e2e:dev": "npm run build && npm run test:e2e",
     "test:e2e:ci": "npm run test:e2e --parallel",
-    "jest:junit": "jest --ci --runInBand --reporters=default --reporters=jest-junit"
+    "test:unit:ci": "jest --ci --runInBand --reporters=default --reporters=jest-junit"
   },
   "repository": {
     "type": "git",
