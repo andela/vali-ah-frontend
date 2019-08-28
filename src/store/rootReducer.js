@@ -1,5 +1,8 @@
+// third-party libraries
 import { combineReducers } from 'redux';
-import { demo } from 'saga';
+
+// modules
+import demo from 'modules/demo';
 
 export default combineReducers({
   demo,
