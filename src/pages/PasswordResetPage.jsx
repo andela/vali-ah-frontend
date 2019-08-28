@@ -1,10 +1,11 @@
+// react libraries
 import React from 'react';
 
-const PasswordResetView = () => (
+const PasswordResetPage = () => (
   <div>
     This is the password reset page.
   </div>
 );
 
 
-export default PasswordResetView;
+export default PasswordResetPage;

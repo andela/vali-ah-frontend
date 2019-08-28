@@ -1,9 +1,10 @@
+// react libraries
 import React from 'react';
 
-const UserFeedView = () => (
+const UserFeedPage = () => (
   <div>
     Your are currently logged in.
   </div>
 );
 
-export default UserFeedView;
+export default UserFeedPage;

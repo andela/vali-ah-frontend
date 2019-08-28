@@ -1,9 +1,10 @@
+// react libraries
 import React from 'react';
 
 const HomePageView = () => (
-  <div>
+  <h1>
     Welcome to 1kbIdeas.
-  </div>
+  </h1>
 );
 
 export default HomePageView;
