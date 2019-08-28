@@ -1,5 +1,5 @@
 const path = require('path');
-const { htmlWebpackPlugin } = require('./webpack.plugins.js');
+const { htmlWebpackPlugin, extractTextPlugin, ExtractTextPlugin } = require('./webpack.plugins.js');
 
 module.exports = {
   entry: ['react-hot-loader/patch', './src/index.jsx'],
@@ -10,12 +10,13 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
     alias: {
       components: path.resolve(__dirname, '../src/components'),
       pages: path.resolve(__dirname, '../src/pages'),
       modules: path.resolve(__dirname, '../src/store/modules'),
       'react-dom': '@hot-loader/react-dom',
+      scss: path.resolve(__dirname, '../src/assets/scss')
     },
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
@@ -28,6 +29,13 @@ module.exports = {
         use: ['babel-loader', 'eslint-loader']
       },
       {
+        test: /\.s?css$/i,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader']
       },
@@ -38,6 +46,7 @@ module.exports = {
     ]
   },
   plugins: [
-    htmlWebpackPlugin
+    htmlWebpackPlugin,
+    extractTextPlugin
   ],
 };
