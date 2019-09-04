@@ -1,0 +1,99 @@
+article {
+  text-align: center;
+}
+
+.article-container {
+  background: grey;
+  width: 80%;
+  height: 400px;
+  margin: auto;
+  padding: 20px;
+}
+
+.article-container h2 {
+  text-align: center;
+  color: floralwhite;
+}
+
+/* social-row-------------------------------------- */
+
+.social-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  align-content: space-between;
+}
+
+.social-row button {
+  vertical-align: middle;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  min-height: 40px;
+  text-align: center;
+  color: black;
+  outline: none;
+}
+
+.social-row .twitter {
+  background: #00ACED;
+  border: 2px solid #00ACED;
+  color: #FFF;
+  fill: #FFF;
+}
+
+.social-row .twitter:hover {
+  background: #00ACED;
+}
+
+.social-row .email {
+  background: #D7493C;
+  border: 2px solid #D7493C;
+  color: #FFF;
+  fill: #FFF;
+}
+
+.social-row .email:hover {
+  background: #D7493C;
+}
+
+.social-row .facebook {
+  background: #1977F2;
+  border: 2px solid #1977F2;
+  color: #FFF;
+  fill: #FFF;
+}
+
+.social-row .facebook:hover {
+  background: #1977F2;
+}
+
+.social-row div {
+  background: white;
+  width: 10px;
+  min-height: 40px;
+}
+
+.social-row button img {
+  height: 20px;
+  margin: 0 5px;
+  color: #FFF;
+  fill: #FFF;
+}
+
+.social-row button:hover {
+  color: white;
+  fill: white;
+}
+
+@media (max-width: 850px) {
+  .social-row span {
+    display: none;
+  }
+}
