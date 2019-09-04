@@ -12,6 +12,7 @@
     "react-hot-loader/babel",
     "@babel/plugin-transform-regenerator",
     "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-optional-chaining",
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
@@ -21,5 +22,12 @@
         "utils": "./src/utils/"
       }
     }],
-  ]
+  ],
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-transform-runtime"
+        ]
+      }
+    }
 }
