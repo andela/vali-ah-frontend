@@ -1,0 +1,76 @@
+@import 'scss/style';
+
+.Comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5rem;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.ui.comments {
+  width: 94%;
+  max-width: 80rem;
+  font-size: 2.4rem;
+
+  h3 {
+    font-size: 3.2rem;
+    line-height: 1.6;
+  }
+
+  .comment {
+    img.avatar {
+      max-width: 6rem;
+      max-height: 6rem;
+      border-radius: 100%;
+    }
+
+    .meta {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1rem;
+    }
+
+    .author {
+      font-size: 2.8rem;
+      font-weight: normal;
+      text-transform: capitalize;
+    }
+
+    .metadata {
+      color: #C4C4C4;
+    }
+
+    .text {
+      font-size: 2.4rem;
+      line-height: 1.6;
+      color: rgba(36, 41, 44, 0.5);
+    }
+  }
+
+  .form {
+    margin-top: 2rem;
+
+    textarea {
+      background: rgba(196, 196, 196, 0.15);
+      border: 0;
+      border-radius: 1rem;
+      font-size: 2.2rem;
+      font-weight: 300;
+      resize: none;
+      outline: none;
+    }
+
+    .massive.ui.right.floated.button {
+      background: #FD8234;
+      border-radius: 0.8rem;
+      font-size: 2.2rem;
+      color: #FFF;
+    }
+  }
+}
