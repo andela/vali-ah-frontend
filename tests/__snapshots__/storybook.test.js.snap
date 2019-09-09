@@ -36,6 +36,130 @@ exports[`Storyshots Button without classname prop 1`] = `
 </button>
 `;
 
+exports[`Storyshots Comments default 1`] = `
+<div
+  className="Comment"
+>
+  <div
+    className="ui comments"
+  >
+    <h3
+      className="ui dividing header"
+    >
+      Comments
+    </h3>
+    <div
+      className="comment"
+    >
+      <a
+        className="avatar"
+        href="df58a9a7-498e-488a-8da3-2fbab99fd1a0"
+      >
+        <img
+          alt=""
+          className="avatar"
+          src="someAvatarUrl"
+        />
+      </a>
+      <div
+        className="content"
+      >
+        <div
+          className="meta"
+        >
+          <a
+            className="author"
+            href="df58a9a7-498e-488a-8da3-2fbab99fd1a0"
+          >
+            first last
+          </a>
+          <div
+            className="metadata"
+          >
+            <span
+              className="date"
+            >
+              Sep 8, 2019
+            </span>
+          </div>
+        </div>
+        <div
+          className="text"
+        >
+          Great article
+        </div>
+      </div>
+    </div>
+    <div
+      className="comment"
+    >
+      <a
+        className="avatar"
+        href="df58a9a7-498e-488a-8da3-2fbab99fd1a0"
+      >
+        <img
+          alt=""
+          className="avatar"
+          src="test-file-stub"
+        />
+      </a>
+      <div
+        className="content"
+      >
+        <div
+          className="meta"
+        >
+          <a
+            className="author"
+            href="df58a9a7-498e-488a-8da3-2fbab99fd1a0"
+          >
+            first last
+          </a>
+          <div
+            className="metadata"
+          >
+            <span
+              className="date"
+            >
+              Sep 8, 2019
+            </span>
+          </div>
+        </div>
+        <div
+          className="text"
+        >
+          Great article
+        </div>
+      </div>
+    </div>
+    <form
+      className="ui form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="field"
+      >
+        <textarea
+          disabled={false}
+          name="comment"
+          onChange={[Function]}
+          placeholder="Write a comment..."
+          required={true}
+          rows={3}
+          value=""
+        />
+      </div>
+      <button
+        className="massive ui right floated button false"
+        type="submit"
+      >
+        Comment
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Icon active 1`] = `
 <button
   aria-label="upvote"
