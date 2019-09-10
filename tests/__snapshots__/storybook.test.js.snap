@@ -41,18 +41,19 @@ exports[`Storyshots Card with text 1`] = `
   className="ui card "
 >
   <div
-    className="image card-thumbnail "
+    className="image"
   >
     <img
       alt="loading"
-      src="img"
+      className="card__card-image"
+      src="https://picsum.photos/300/200"
     />
   </div>
   <div
     className="content"
   >
     <p
-      className="header card-category"
+      className="header card__card-category"
     >
       tag
     </p>
@@ -69,7 +70,7 @@ exports[`Storyshots Card with text 1`] = `
       </p>
     </div>
     <div
-      className="meta card-author"
+      className="meta card__card-author"
     >
       author
     </div>
@@ -102,13 +103,13 @@ exports[`Storyshots Header The full navbar 1`] = `
   </div>
   <nav>
     <a
-      className="header__homeNavLinks header__homeNavLinks--right-margin"
+      className="header__navlink header__navlink--right"
       href="/#"
     >
       Sign in
     </a>
     <a
-      className="header__homeNavLinks"
+      className="header__navlink"
       href="/#"
     >
       Sign up

@@ -1,5 +1,7 @@
-// third-party libraries
+// react library
 import React, { Component } from 'react';
+
+// third-party libraries
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -13,6 +15,8 @@ import Search from 'components/Search';
 
 // utils
 import connect from 'utils/connect';
+
+// modules
 import { searchArticlesRequest } from 'modules/search';
 
 /**
@@ -75,32 +79,19 @@ import { searchArticlesRequest } from 'modules/search';
   };
 
   handleTermChange = ({ target: { value } }) => {
-    this.setState(() => ({
-      term: value,
-    }));
-
-    this.submitForm(value);
+    this.setState({ term: value }, this.submitForm(value));
   };
 
   handleSearch = ({ keyCode }) => {
     const { term } = this.state;
     if (keyCode === 13) {
-      this.setState(() => ({
-        searched: true,
-      }));
-
-      return this.submitForm(term);
+      this.setState({ searched: true }, this.submitForm(term));
     }
-    return null;
   };
 
   handleIncomingSearch = () => {
     const { term } = this.state;
-    this.setState(() => ({
-      searched: true,
-    }));
-
-    this.submitForm(term);
+    this.setState({ searched: true }, this.submitForm(term));
   };
 
   renderList = () => {
@@ -109,10 +100,10 @@ import { searchArticlesRequest } from 'modules/search';
     } = this.props;
 
     return (data)
-      ? data.map((article) => (
+      && data.map((article) => (
         <Link
           to={`/articles/${article.slug}`}
-          key={article.title}
+          key={article.ArticleId}
           className="card-display"
         >
           <Card
@@ -123,8 +114,7 @@ import { searchArticlesRequest } from 'modules/search';
             author={article.author.name}
           />
         </Link>
-      ))
-      : [];
+      ));
   };
 
   render() {
@@ -137,9 +127,6 @@ import { searchArticlesRequest } from 'modules/search';
       <div className="search-container">
         <div>
           <Search
-            className="search-container__search"
-            type="text"
-            placeholder="Search for articles"
             searchkeyUp={this.handleSearch}
             changeValue={this.handleInputChange}
             searchValue={query}
@@ -148,9 +135,9 @@ import { searchArticlesRequest } from 'modules/search';
         </div>
         {loading && <Spinner caption="Searching" />}
         {searched && (
-          <div className="search-container__query-button">
+          <div>
             <button
-              className="query-button__tag"
+              className="search-container__query-button-tag"
               type="button"
               onClick={this.handleTermChange}
               value="tag"
@@ -158,7 +145,7 @@ import { searchArticlesRequest } from 'modules/search';
               tag
             </button>
             <button
-              className="query-button__author"
+              className="search-container__query-button-author"
               type="button"
               onClick={this.handleTermChange}
               value="author"
@@ -166,7 +153,7 @@ import { searchArticlesRequest } from 'modules/search';
               author
             </button>
             <button
-              className="query-button__title"
+              className="search-container__query-button-title"
               type="button"
               onClick={this.handleTermChange}
               value="title"
@@ -174,7 +161,7 @@ import { searchArticlesRequest } from 'modules/search';
               title
             </button>
             <button
-              className="query-button__keyword"
+              className="search-container__query-button-keyword"
               type="button"
               onClick={this.handleTermChange}
               value="keyword"
@@ -183,7 +170,7 @@ import { searchArticlesRequest } from 'modules/search';
             </button>
           </div>
         )}
-        <div className="search-container__card-grid">{this.renderList()}</div>
+        <div>{this.renderList()}</div>
       </div>
     );
   }
