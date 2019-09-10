@@ -21,7 +21,8 @@ module.exports = {
       utils: path.resolve(__dirname, '../src/utils'),
       'react-dom': '@hot-loader/react-dom',
       scss: path.resolve(__dirname, '../src/assets/scss'),
-      fixtures: path.resolve(__dirname, '../tests/fixtures')
+      fixtures: path.resolve(__dirname, '../tests/fixtures'),
+      images: path.resolve(__dirname, '../src/assets/images'),
     },
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
@@ -45,8 +46,13 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'postcss-loader']
       },
       {
-        test: /\.(png|jpg|gif|jpeg)$/,
-        loader: 'file-loader',
+        test: /\.(eot|woff|woff2|ttf|png|jpg|gif|jpeg|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { useRelativePath: true }
+          }
+        ]
       }
     ]
   },

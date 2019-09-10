@@ -1,0 +1,24 @@
+@import '~scss/style';
+
+.card {
+  width: 19rem;
+  height: 60% !important;
+  margin: 1rem !important;
+
+  &__card-image {
+    width: 30%;
+    height: 10rem;
+  }
+
+  &__card-category {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #FD8234 !important;
+  }
+
+  &__card-author {
+    margin-top: 1rem !important;
+    font-size: 1.2rem !important;
+    font-weight: 300;
+  }
+}

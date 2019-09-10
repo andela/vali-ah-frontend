@@ -1,8 +1,9 @@
-// react libraries
+// react library
 import React, { Component } from 'react';
 
-// utils
-import connect from 'utils/connect';
+// components
+import Navbar from 'components/Header';
+
 
 /**
  * @exports
@@ -13,15 +14,15 @@ import connect from 'utils/connect';
  * @returns {JSX} HomePage Component
  */
 class HomePage extends Component {
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   render() {
     return (
-      <h1>Welcome to 1kbIdeas</h1>
+      <div>
+        <Navbar />
+        <h1>Welcome to 1kbIdeas</h1>
+      </div>
     );
   }
 }
-
-export default connect({ })(HomePage);
+export default HomePage;
