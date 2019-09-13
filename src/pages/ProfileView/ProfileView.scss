@@ -1,0 +1,109 @@
+@import '~scss/style';
+@import 'scss/mixins';
+@import 'scss/variables';
+
+.profile-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-container .profile-container__header {
+  @include profile-boxshadow;
+  min-height: 50%;
+  text-align: center;
+}
+
+.profile-container .profile-container__mini-header {
+  background: $primarycolor;
+  height: 20rem;
+}
+
+.profile-container .profile-container__image {
+  margin: -12rem auto;
+}
+
+.profile-container__image-preview-view {
+  @include profile-boxshadow;
+  position: relative;
+  width: 17rem;
+  height: 17rem;
+  margin-bottom: 1rem;
+  border-radius: 100%;
+}
+
+.profile-container__image-placeholder {
+  width: 20rem;
+  margin: auto;
+}
+
+.profile-container .profile-container__name {
+  @include profile-margin;
+}
+
+.profile-container .profile-container__bio {
+  @include bio;
+}
+
+.profile-container .profile-container__social-detail {
+  width: 45%;
+  margin: 1rem auto;
+  padding: 0;
+}
+
+.profile-container__link {
+  text-align: center;
+}
+
+.profile-container-link__published {
+  margin: 3rem 15rem 0.8rem 0;
+  border-bottom: solid $activecolor;
+}
+
+.profile-container-link__bookmark {
+  margin: 3rem 0 0.8rem;
+}
+
+.profile-container-link__drafts {
+  margin: 3rem 0 0.8rem 15rem;
+}
+
+.profile-container-link__published,
+.profile-container-link__bookmark,
+.profile-container-link__drafts {
+  background-color: transparent;
+  border: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  outline: 0;
+}
+
+.profile-active {
+  color: $activecolor;
+}
+
+.profile-container__response {
+  width: 100%;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+button div {
+  // .bookmark__span,
+  // .drafts__span {
+  background: $activecolor;
+  width: 9rem;
+
+  // background: #fd8234;
+  height: 1rem;
+  margin-top: 0.6rem;
+}
+
+@media (min-width: 20rem) and (max-width: 44rem) {
+  .profile-container-link__published,
+  .profile-container-link__bookmark,
+  .profile-container-link__drafts {
+    margin: 3rem 1rem;
+    font-size: 1rem;
+  }
+}

@@ -15,3 +15,22 @@
 @mixin body-reset {
   margin: 0;
 }
+
+@mixin bio {
+  width: 45%;
+  margin: auto;
+  padding-bottom: 2rem;
+  font-weight: 100;
+  line-height: 1.5rem;
+}
+
+@mixin profile-margin {
+  margin: 12rem auto 1rem;
+  font-size: 2rem;
+}
+
+@mixin profile-boxshadow {
+  -webkit-box-shadow: $webkit-box-shadow;
+  -moz-box-shadow: $moz-box-shadow;
+  box-shadow: $box-shadow;
+}
