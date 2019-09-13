@@ -22,6 +22,7 @@ module.exports = {
       'react-dom': '@hot-loader/react-dom',
       scss: path.resolve(__dirname, '../src/assets/scss'),
       fixtures: path.resolve(__dirname, '../tests/fixtures'),
+      mocks: path.resolve(__dirname, '../tests/__mocks__'),
       validations: path.resolve(__dirname, '../src/validations'),
       assets: path.resolve(__dirname, '../src/assets')
     },

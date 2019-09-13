@@ -16,13 +16,15 @@ import './InlineCommentForm.scss';
 const CommentForm = (props) => {
   const [formOpen, setFormOpen] = useState(false);
   const [content, setContent] = useState('');
-
   const openForm = () => setFormOpen(!formOpen);
   const onFormChange = (event) => setContent(event.target.value);
 
   const {
-    isCreating, style, createComment, isLoading
+    isCreating, createComment, isLoading, position,
+    ValidationErrors
   } = props;
+
+  const style = { position: 'absolute', top: position.top, left: position.left };
 
   const icon = formOpen ? 'minus' : 'add';
 
@@ -39,6 +41,13 @@ const CommentForm = (props) => {
         <div className="ui form">
           <div className="field">
             <textarea rows="6" content={content} onChange={onFormChange} />
+            <p>
+              {ValidationErrors && ValidationErrors.content && (
+                <span className="comment-form__error">
+                  {ValidationErrors.content}
+                </span>
+              )}
+            </p>
             {isCreating && (
               <Button onClick={() => createComment(content)}>
               Comment
@@ -66,14 +75,19 @@ const CommentForm = (props) => {
   */
 CommentForm.propTypes = {
   isCreating: PropTypes.bool,
-  style: PropTypes.isRequired,
+  position: PropTypes.shape({
+    top: PropTypes.string,
+    left: PropTypes.string
+  }),
   createComment: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  ValidationErrors: PropTypes.arrayOf(Array).isRequired
 };
 
 CommentForm.defaultProps = {
   isCreating: true,
-  isLoading: false
+  isLoading: false,
+  position: {}
 };
 
 export default CommentForm;

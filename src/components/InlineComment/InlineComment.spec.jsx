@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
-import getTestData from 'fixtures/inlineComments';
+import getTestData, { commentData, rangeObject } from 'mocks/inlineComments';
 
 import { InlineComment } from './index';
 
@@ -52,12 +52,16 @@ describe('Create Component', () => {
 
     comment.find('ButtonWithIcon').simulate('click');
     comment.update();
+
     sinon.stub(document, 'createElement').returns(documentMock);
 
-    comment.find('Button').simulate('click');
+    comment.find('textarea').simulate('change', { target: { value: 'My new inline comment' } });
+
+    comment.find('button').simulate('click');
 
     expect(props.createInlineCommentDispatch).toBeCalled();
   });
+
 
   it('should handleTextHighlight if all conditions are met', () => {
     const { props, currentRange, windowMock } = getTestData();
@@ -91,6 +95,59 @@ describe('Create Component', () => {
     expect(comment.state().showForm).toBe(false);
     expect(comment.state().currentRange).toBe(null);
     expect(response).toBeUndefined();
+  });
+
+  it('should surround ranges context', () => {
+    const { props, windowMock } = getTestData();
+    windowMock.focusOffset = 30;
+
+    const comment = mount(<InlineComment {...props} />);
+    const handler = comment.instance();
+
+    sinon.stub(handler, 'getHighlightParentNode').returns({});
+
+    window.getSelection = windowMock.getSelection;
+
+    handler.getCommentRange(commentData[0]);
+
+    handler.getHighlightParentNode.restore();
+
+    expect(rangeObject.setStart).toBeCalled();
+    expect(rangeObject.setEnd).toBeCalled();
+    expect(rangeObject.surroundContents).toBeCalled();
+  });
+
+  it('should catch error when getting comment range', () => {
+    const { props, windowMock } = getTestData();
+    windowMock.focusOffset = 30;
+
+    const comment = mount(<InlineComment {...props} />);
+    const handler = comment.instance();
+
+    sinon.stub(handler, 'getHighlightParentNode').throws();
+    window.getSelection = windowMock.getSelection;
+
+    const response = handler.getCommentRange(commentData[0]);
+
+    handler.getHighlightParentNode.restore();
+    expect(response).toBeInstanceOf(Error);
+  });
+
+  it('should show comment details', () => {
+    const { props, windowMock } = getTestData();
+    windowMock.focusOffset = 30;
+
+    const comment = mount(<InlineComment {...props} />);
+    const handler = comment.instance();
+
+    handler.showCommentDetails({ pageY: 30 }, commentData[0]);
+    comment.update();
+
+    const { showComment, commentDetailsStyle, commentDetails } = comment.state();
+
+    expect(showComment).toBe(true);
+    expect(commentDetailsStyle).toEqual({ top: 30 });
+    expect(commentDetails).toEqual([commentData[0]]);
   });
 
   it('should return if selected text is less than 20 chars', () => {

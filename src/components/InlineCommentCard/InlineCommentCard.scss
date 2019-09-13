@@ -1,28 +1,33 @@
 @import '~scss/style';
 
 .inline-comment {
+  position: absolute;
+  right: 4rem;
   display: flex;
   flex-direction: column;
   width: 30%;
-  position: absolute;
-  right: 4rem;
+
   &__status {
     &.green {
-      color: green;
+      color: $green;
     }
+
     &.red {
-      color: red;
+      color: $red;
     }
   }
+
   .extra {
     .content {
       margin: auto;
-      padding: .3rem;
+      padding: 0.3rem;
     }
   }
+
   .content {
-    padding: .4rem
+    padding: 0.4rem;
   }
+
   .card {
     width: 100% !important;
   }

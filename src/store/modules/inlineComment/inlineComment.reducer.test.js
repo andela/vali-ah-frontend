@@ -4,7 +4,7 @@ import http from 'utils/http';
 
 import defaultReducer, {
   clearInlineCommentState, createInlineCommentFailure, createInlineCommentSuccess,
-  createInlineComment, inlineCommentWorker, getInlineComments, getInlineCommentsWorker,
+  createInlineComment, inlineCommentWorker, getInlineComments,
   getInlineCommentsSuccess
 } from './index';
 
@@ -50,7 +50,7 @@ describe('GET Inline Comment saga', () => {
 
     await runSaga({
       dispatch: (action) => dispatched.push(action)
-    }, getInlineCommentsWorker, initialAction).toPromise();
+    }, inlineCommentWorker, initialAction).toPromise();
 
     expect(dispatched[0].type).toEqual(getInlineCommentsSuccess().type);
   });
@@ -62,7 +62,7 @@ describe('GET Inline Comment saga', () => {
 
     await runSaga({
       dispatch: (action) => dispatched.push(action)
-    }, getInlineCommentsWorker, initialAction).toPromise();
+    }, inlineCommentWorker, initialAction).toPromise();
 
     expect(dispatched[0].type).toEqual(getInlineCommentsSuccess().type);
   });

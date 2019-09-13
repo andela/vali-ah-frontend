@@ -16,6 +16,10 @@ import connect from 'utils/connect';
 // modules
 import { createInlineComment, clearInlineCommentState, getInlineComments } from 'modules/inlineComment';
 
+// validation
+import Validator from 'utils/validator';
+import validationRule from '../../validation/inlineComment';
+
 import './InlineComment.scss';
 
 /**
@@ -52,7 +56,7 @@ export class InlineComment extends React.Component {
     super(props);
     this.parentRef = props.parentRef;
     this.state = {
-      currentRange: null, showForm: false
+      currentRange: null, showForm: false, showComment: false
     };
   }
 
@@ -93,7 +97,6 @@ export class InlineComment extends React.Component {
    *
    * @returns {Object} - object containing the clientRect positions
    */
-
   getCommentPosition = (range) => {
     const [rect] = range.getClientRects();
     return {
@@ -117,11 +120,10 @@ export class InlineComment extends React.Component {
     const { updateArticle } = this.props;
 
     this.setState({ currentRange: null, showForm: false });
-    // console.log(this.state.currentRange, this.clonedElement, this.parentRef.current.innerHTML);
 
     const htmlToReactParser = new Parser();
     const reactElement = htmlToReactParser.parse(this.clonedElement);
-    // console.log(reactElement);
+
     updateArticle(reactElement, this.clonedElement);
   }
 
@@ -137,8 +139,9 @@ export class InlineComment extends React.Component {
 
     const windowTop = (window.pageYOffset || document.scrollTop || 0) - (document.clientTop || 0);
     const positionTop = windowTop + top;
+    const commentFormPosition = { top: `${positionTop}px`, left: `${x * 5}px` };
 
-    this.setState({ createCommentTop: `${positionTop}px`, createCommentLeft: `${x * 5}px` });
+    this.setState({ commentFormPosition });
   }
 
   /**
@@ -147,19 +150,34 @@ export class InlineComment extends React.Component {
    * @returns {void}
    */
   handleTextHightlight = () => {
-    const { currentRange } = this.state;
-    if (currentRange) this.setState({ showForm: false });
+    this.setState({ showForm: false, showComment: false });
+
     if (!window.getSelection) return;
 
     const selection = window.getSelection();
 
     if (Math.abs(selection.focusOffset - selection.anchorOffset) < 20) return;
 
-    const contentHighlighted = selection.getRangeAt(0).cloneContents();
     const cloneRange = selection.getRangeAt(0).cloneRange();
 
-    this.setState({ contentHighlighted, currentRange: cloneRange, showForm: true });
+    this.setState({ currentRange: cloneRange, showForm: true });
     this.positionCommentComponent(cloneRange);
+  }
+
+  showCommentDetails = (event, comment) => {
+    const { pageY } = event;
+
+    const style = { top: pageY };
+
+    this.setState({ showComment: true, commentDetailsStyle: style, commentDetails: [comment] });
+  }
+
+  getMarkerNode = (comment) => {
+    const markerNode = document.createElement('section');
+    markerNode.setAttribute('class', 'inline-comment__marker-node');
+    markerNode.onclick = (event) => this.showCommentDetails(event, comment);
+
+    return markerNode;
   }
 
   /**
@@ -170,21 +188,26 @@ export class InlineComment extends React.Component {
    * @returns {void}
    */
   createComment = (content) => {
-    const { currentRange: r, contentHighlighted } = this.state;
+    const { inlineCommentValidation } = validationRule;
+    const inlineCommentValidator = new Validator(inlineCommentValidation);
+
+    const { isValid, ...errors } = inlineCommentValidator.validate({ content });
+    const newErrors = errors;
+    this.setState({ ValidationErrors: newErrors });
+
+    if (!isValid) return;
+
+    const { currentRange } = this.state;
     const { articleId, createInlineCommentDispatch } = this.props;
 
-    const currentRange = r.cloneRange();
-    const markerNode = document.createElement('section');
-    markerNode.appendChild(contentHighlighted);
-    markerNode.style.cssText = 'background-color:red;display:inline';
+    this.extractedContent = currentRange.cloneContents();
 
-    this.extractedContent = currentRange.extractContents();
-    currentRange.insertNode(markerNode);
+    currentRange.surroundContents(this.getMarkerNode());
 
     this.setState({ currentRange });
     this.currentRange = currentRange;
 
-    const highlightIndex = this.getHighlightTextIndex(markerNode);
+    const highlightIndex = this.getHighlightTextIndex(currentRange.cloneContents());
     const commentDetails = { articleId, content, ...highlightIndex };
 
     createInlineCommentDispatch(commentDetails);
@@ -211,54 +234,77 @@ export class InlineComment extends React.Component {
     resetCommentState();
   }
 
-  getHighlightParentNode = () => {
-    
+  getHighlightParentNode = (startIndex) => {
+    const containerHtml = this.parentRef.current.innerHTML;
+    const regExSearch = new RegExp(/<.([^\s|>]+)/, 'g');
+
+    const precedingText = containerHtml.substring(0, startIndex);
+
+    const tagsInDom = precedingText.match(regExSearch);
+
+    const tag = tagsInDom[tagsInDom.length - 1].substr(1);
+    const numberOfTagOccurence = tagsInDom
+      .filter((singleTag) => singleTag.substr(1) === tag).length;
+
+    return this.parentRef.current.getElementsByTagName(tag)
+      .item(numberOfTagOccurence - 1).firstChild;
   };
+
+  getCommentRange = (comment) => {
+    try {
+      const [startIndex, endIndex] = comment.highlightIndex.split(':');
+
+      const rangeNode = this.getHighlightParentNode(startIndex, endIndex);
+
+      const range = new Range();
+      range.setStart(rangeNode, 0);
+      range.setEnd(rangeNode, endIndex - startIndex);
+
+      return range.surroundContents(this.getMarkerNode(comment));
+    } catch (error) {
+      return error;
+    }
+  }
 
   displayInlineComments = () => {
-    try {
-      const { inlineComment } = this.props;
-      const { comments } = inlineComment;
-      console.log(comments);
-      const domHtml = this.parentRef.current.innerHTML;
+    const { inlineComment } = this.props;
+    const { comments } = inlineComment;
 
-      const [singleComment] = comments;
-      const [startIndex, endIndex] = singleComment.highlightIndex.split(':');
-
-      const commentRange = new Range();
-      commentRange.setStart(this.parentRef.current, startIndex);
-      commentRange.setEnd(this.parentRef.current, endIndex);
-
-      console.log(commentRange);
-    // eslint-disable-next-line no-empty
-    } catch (error) {
-      console.log(error);
-    }
+    comments.forEach(this.getCommentRange);
   };
+
+  shouldUpdateDom = () => {
+    const { currentRange } = this.state;
+    const { inlineComment } = this.props;
+    const { error, commented } = inlineComment;
+
+    return (commented || error) && currentRange;
+  }
 
   render() {
     const {
-      createCommentLeft, createCommentTop, showForm, currentRange
+      commentFormPosition, showForm, ValidationErrors,
+      showComment, commentDetails, commentDetailsStyle
     } = this.state;
     const { inlineComment } = this.props;
     const {
-      isLoading, error, errors, message, commented, comments
+      isLoading, error, errors, message, comments
     } = inlineComment;
-    const style = { position: 'absolute', top: createCommentTop, left: createCommentLeft };
 
-    if ((commented || error) && currentRange) this.updateParentDom();
+    if (this.shouldUpdateDom()) this.updateParentDom();
     if (comments.length) this.displayInlineComments();
 
     return (
       <>
         <Message active={error} heading={message} messages={Object.values(errors || [])} />
-        {!!comments.length && <InlineCommentCard comments={comments} />}
+        {showComment && <InlineCommentCard style={commentDetailsStyle} comments={commentDetails} />}
         {showForm
           && (
             <InlineCommentForm
               isLoading={isLoading}
-              style={style}
+              position={commentFormPosition}
               createComment={this.createComment}
+              ValidationErrors={ValidationErrors}
             />
           )}
       </>
@@ -267,6 +313,7 @@ export class InlineComment extends React.Component {
 }
 
 export default connect({
-  createInlineCommentDispatch: createInlineComment, resetCommentState: clearInlineCommentState,
+  createInlineCommentDispatch: createInlineComment,
+  resetCommentState: clearInlineCommentState,
   getInlineCommentsDispatch: getInlineComments
 })(InlineComment);

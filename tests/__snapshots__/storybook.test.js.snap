@@ -180,6 +180,13 @@ exports[`Storyshots InlineCommentCard comment with valid highlight 1`] = `
 exports[`Storyshots InlineCommentForm InlineCommentForm 1`] = `
 <div
   className="comment-form"
+  style={
+    Object {
+      "left": undefined,
+      "position": "absolute",
+      "top": undefined,
+    }
+  }
 >
   <div
     className="ui orange labeled icon button comment-form__create-comment"

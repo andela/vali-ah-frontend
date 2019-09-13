@@ -20,23 +20,27 @@ export const getInlineCommentsSuccess = (payload) => ({
   type: GET_INLINE_COMMENTS_SUCCESS, payload
 });
 
-export function* inlineCommentWorker(action) {
-  try {
-    const commentResponse = yield call(API.createComment, action.payload);
-
-    yield put(createInlineCommentSuccess({ ...action.payload, ...commentResponse.data }));
-  } catch (error) {
-    yield put(createInlineCommentFailure(error));
+const handler = {
+  [INLINE_COMMENT_REQUEST]: {
+    API: API.createComment,
+    sucess: createInlineCommentSuccess,
+    failure: createInlineCommentFailure
+  },
+  [GET_INLINE_COMMENTS_REQUEST]: {
+    API: API.getComments,
+    success: getInlineCommentsSuccess,
+    failure: () => getInlineCommentsSuccess({})
   }
-}
+};
 
-export function* getInlineCommentsWorker(action) {
+export function* inlineCommentWorker(action) {
+  const actionHandler = handler[action.type];
   try {
-    const commentResponse = yield call(API.getComments, action.payload);
+    const commentResponse = yield call(actionHandler.API, action.payload);
 
-    yield put(getInlineCommentsSuccess({ ...action.payload, ...commentResponse.data }));
+    yield put(actionHandler.sucess({ ...commentResponse.data }));
   } catch (error) {
-    yield put(getInlineCommentsSuccess({}));
+    yield put(actionHandler.failure(error));
   }
 }
 
@@ -56,9 +60,9 @@ export default (state = initialState, { type, payload }) => {
   const { comments } = state;
   switch (type) {
   case GET_INLINE_COMMENTS_REQUEST:
-    return { isLoading: true, comments };
+    return { comments };
   case GET_INLINE_COMMENTS_SUCCESS:
-    return { comments: commentData };
+    return { isLoading: false, comments: commentData };
   case INLINE_COMMENT_REQUEST:
     return { isLoading: true, comments };
   case INLINE_COMMENT_SUCCESS:

@@ -15,11 +15,11 @@ import './InlineCommentCard.scss';
  * @summary create a form to create a comment
  */
 const CommentCard = (props) => {
-  const { comments } = props;
+  const { comments, style } = props;
   return (
     <>
       {!!comments.length && (
-        <div className="ui cards vertical inline-comment">
+        <div className="ui cards vertical inline-comment" style={style}>
           {comments.map(({ user, highlightedText, content, Valid }) => (
             <div className="card">
               <div className="content">
@@ -43,6 +43,7 @@ const CommentCard = (props) => {
 };
 
 CommentCard.propTypes = {
+  style: PropTypes.string.isRequired,
   comments: PropTypes.arrayOf(PropTypes.shape({
     isValid: PropTypes.bool.isRequired,
     content: PropTypes.string.isRequired,
