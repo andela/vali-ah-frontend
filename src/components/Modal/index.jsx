@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // components
 import Signin from 'components/Signin';
 import Signup from 'components/Signup';
+import SocialLoginButtons from 'components/SocialLoginButtonRow';
 
 import './Modal.scss';
 
@@ -25,16 +26,16 @@ export class ModalComponent extends React.Component {
   };
 
   static getDerivedStateFromProps(props, { close }) {
-    const { show } = props;
+    const { show, formType } = props;
 
-    return { show: (show && !close), close: false };
+    return { show: (show && !close), close: false, signin: formType === 'login' };
   }
 
   constructor(props) {
     super(props);
     const { formType, show } = this.props;
     this.state = {
-      signin: formType,
+      signin: formType === 'login',
       show
     };
   }
@@ -46,8 +47,9 @@ export class ModalComponent extends React.Component {
     * @return {void}
     */
   handleFormChange = () => {
+    const { formType } = this.props;
     const { signin } = this.state;
-    this.setState({ signin: !signin });
+    this.setState({ signin: !signin && formType === 'login' });
   }
 
   /**
@@ -87,7 +89,7 @@ export class ModalComponent extends React.Component {
           <div className="modal__right">
             <h4 className="modal__heading">Select one to get started</h4>
             <div className="modal__social-login">
-                IBUKUN COMPONENT
+              <SocialLoginButtons />
             </div>
             <div className="modal__seperator">
               <p>or</p>
@@ -104,8 +106,8 @@ export class ModalComponent extends React.Component {
               }
               <div className="modal__setup-tag">
                 <p>
-                  {(signin) && 'Don\'t have an account ? '}
-                  {(!signin) && 'Already have an account ? '}
+                  {(signin) && 'Don\'t have an account ?'}
+                  {(!signin) && 'Already have an account ?'}
                   <button type="button" className="modal__create-account" onClick={this.handleFormChange}>{(signin) ? 'Sign up' : 'Sign in'}</button>
                 </p>
                 { signin && (

@@ -125,6 +125,13 @@ exports[`Storyshots Button add custom class 1`] = `
   onClick={[Function]}
   type="button"
 />
+  className="button__round"
+  id=""
+  onClick={[Function]}
+  type="button"
+>
+  auth
+</button>
 `;
 
 exports[`Storyshots Button with Login text 1`] = `
@@ -134,6 +141,9 @@ exports[`Storyshots Button with Login text 1`] = `
   onClick={[Function]}
   type="button"
 />
+>
+  Sign In
+</button>
 `;
 
 exports[`Storyshots Button with submit text 1`] = `
@@ -143,6 +153,9 @@ exports[`Storyshots Button with submit text 1`] = `
   onClick={[Function]}
   type="button"
 />
+>
+  Submit
+</button>
 `;
 
 exports[`Storyshots Button without classname prop 1`] = `
@@ -152,6 +165,92 @@ exports[`Storyshots Button without classname prop 1`] = `
   onClick={[Function]}
   type="button"
 />
+`;
+
+exports[`Storyshots Feed card card design 1`] = `
+<div
+  className="feed-card"
+>
+  <div
+    className="feed-card__image-div"
+  >
+    <img
+      alt="card"
+      className="feed-card__image"
+      src="https://i.pinimg.com/originals/cf/eb/30/cfeb3055f02670a1a19edf52b02f5b7a.jpg"
+    />
+  </div>
+  <div
+    className="feed-card__details"
+  >
+    <div
+      className="feed-card__info"
+    >
+      <p
+        className="feed-card__tag"
+      >
+        productivity
+      </p>
+      <a
+        href="/articles/adedef-dfrer-1223"
+        onClick={[Function]}
+      >
+        <h3
+          className="feed-card__title"
+        >
+          How to make good foed believe in something like anonimous
+        </h3>
+      </a>
+      <p
+        className="feed-card__date"
+      >
+        23rd June 2019
+      </p>
+      <img
+        alt="card"
+        className="feed-card__profile-image"
+        src="https://militaryfamilies.psu.edu/wp-content/uploads/2019/04/placeholder_profile_photo.png"
+      />
+    </div>
+    <div
+      className="feed-card__icons"
+    >
+      <div
+        className="feed-card__component"
+      >
+        BM
+      </div>
+      <div
+        className="feed-card__component"
+      >
+        VW
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots CreateInlineComment createInlineComment 1`] = `
+<div
+  className="ui orange labeled icon button"
+>
+  Add Comment
+  <i
+    className="add icon"
+  />
+</div>
+exports[`Storyshots FacebookLoginButton default 1`] = `
+<button
+  className="social-login-button"
+  id=""
+  onClick={[Function]}
+  type="button"
+>
+  <img
+    alt="facebook Logo"
+    src="test-file-stub"
+  />
+</button>
 `;
 
 exports[`Storyshots Icon active 1`] = `
@@ -260,7 +359,32 @@ exports[`Storyshots Modal click closed modal button 1`] = `
       <div
         className="modal__social-login"
       >
-        IBUKUN COMPONENT
+        <div
+          className="social-login-button-row"
+        >
+          <button
+            className="social-login-button"
+            id="custom-btn"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="google Logo"
+              src="test-file-stub"
+            />
+          </button>
+          <button
+            className="social-login-button"
+            id=""
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="facebook Logo"
+              src="test-file-stub"
+            />
+          </button>
+        </div>
       </div>
       <div
         className="modal__seperator"
@@ -449,7 +573,7 @@ exports[`Storyshots Modal click closed modal button 1`] = `
           className="modal__setup-tag"
         >
           <p>
-            Already have an account ? 
+            Already have an account ?
             <button
               className="modal__create-account"
               onClick={[Function]}
@@ -509,7 +633,32 @@ exports[`Storyshots Modal click sign in 1`] = `
       <div
         className="modal__social-login"
       >
-        IBUKUN COMPONENT
+        <div
+          className="social-login-button-row"
+        >
+          <button
+            className="social-login-button"
+            id="custom-btn"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="google Logo"
+              src="test-file-stub"
+            />
+          </button>
+          <button
+            className="social-login-button"
+            id=""
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="facebook Logo"
+              src="test-file-stub"
+            />
+          </button>
+        </div>
       </div>
       <div
         className="modal__seperator"
@@ -567,13 +716,16 @@ exports[`Storyshots Modal click sign in 1`] = `
               id=""
               type="submit"
             />
+            >
+              Sign In
+            </button>
           </section>
         </form>
         <div
           className="modal__setup-tag"
         >
           <p>
-            Don't have an account ? 
+            Don't have an account ?
             <button
               className="modal__create-account"
               onClick={[Function]}
@@ -641,7 +793,32 @@ exports[`Storyshots Modal default signup view 1`] = `
       <div
         className="modal__social-login"
       >
-        IBUKUN COMPONENT
+        <div
+          className="social-login-button-row"
+        >
+          <button
+            className="social-login-button"
+            id="custom-btn"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="google Logo"
+              src="test-file-stub"
+            />
+          </button>
+          <button
+            className="social-login-button"
+            id=""
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="facebook Logo"
+              src="test-file-stub"
+            />
+          </button>
+        </div>
       </div>
       <div
         className="modal__seperator"
@@ -830,7 +1007,7 @@ exports[`Storyshots Modal default signup view 1`] = `
           className="modal__setup-tag"
         >
           <p>
-            Already have an account ? 
+            Already have an account ?
             <button
               className="modal__create-account"
               onClick={[Function]}
@@ -844,6 +1021,25 @@ exports[`Storyshots Modal default signup view 1`] = `
     </div>
   </div>
 </div>
+`;
+
+exports[`Storyshots ShareStory default view 1`] = `
+<a
+  className="share-story"
+  href="/createArticles"
+  onClick={[Function]}
+>
+  <div
+    className="share-story__text"
+  >
+    Share your story...
+  </div>
+  <img
+    alt=""
+    className="share-story__image"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoLXTpv0URjl0NTVXoHIKJimWXKu7RoMeENHB2jRBqX3C_Aa7Ktg"
+  />
+</a>
 `;
 
 exports[`Storyshots Signin sign in form 1`] = `
@@ -893,8 +1089,46 @@ exports[`Storyshots Signin sign in form 1`] = `
       id=""
       type="submit"
     />
+    >
+      Sign In
+    </button>
   </section>
 </form>
+`;
+
+exports[`Storyshots Subscription Card default view 1`] = `
+<div
+  className="subscription-card"
+>
+  <div
+    className="subscription-card__image-div"
+  >
+    <img
+      alt=""
+      className="subscription-card__image"
+      src="https://militaryfamilies.psu.edu/wp-content/uploads/2019/04/placeholder_profile_photo.png"
+    />
+  </div>
+  <div
+    className="subscription-card__details"
+  >
+    <a
+      href="/articles/the-slug-111"
+      onClick={[Function]}
+    >
+      <div
+        className="subscription-card__title"
+      >
+        The biginning
+      </div>
+    </a>
+    <div
+      className="subscription-card__summary"
+    >
+      summary is too short. Hope it is long
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Storyshots Vote downvoted 1`] = `

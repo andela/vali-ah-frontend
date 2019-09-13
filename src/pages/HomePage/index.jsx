@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // react libraries
 import React, { Component } from 'react';
 
@@ -12,6 +13,9 @@ import ArticleCard from 'components/ArticleCard';
 import CardContainer from 'components/CardContainer';
 import ScrollToTopButton from 'components/ScrollToTopButton';
 import request from 'modules/userSelection/requests';
+
+import { activateModal as activateModalAction } from 'modules/header';
+
 
 /**
  * @exports
@@ -52,13 +56,18 @@ class HomePage extends Component {
   }
 
   render() {
-    const { userSelection: { userSelection }, header: { activateModal } } = this.props;
+    const {
+      userSelection: { userSelection },
+      header: { activateModal, formType }, activateModalDispatch
+    } = this.props;
+
     const { userArticles, loaded } = this.state;
     const renderModal = !localStorage.getItem('userCategory') && !userSelection;
+
     return (
       <div>
-        <Modal show={!!activateModal} />
-        <HeroSection />
+        <Modal show={!!activateModal} formType={formType} />
+        <HeroSection joinActionHandler={() => activateModalDispatch({ formType: 'signup' })} signinActionHandler={() => activateModalDispatch({ formType: 'login' })} />
         {renderModal && <ModalSection /> }
         <CardContainer
           CardComponent={ArticleCard}
@@ -70,4 +79,4 @@ class HomePage extends Component {
   }
 }
 
-export default connect({ })(HomePage);
+export default connect({ activateModalDispatch: activateModalAction })(HomePage);
